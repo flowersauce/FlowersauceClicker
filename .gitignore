@@ -52,3 +52,9 @@ compile_commands.json
 *creator.user*
 
 *_qmlcache.qrc
+
+# Exclude .clion directory
+.idea/
+
+# Exclude build directory
+build/

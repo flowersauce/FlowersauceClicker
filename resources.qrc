@@ -1,0 +1,6 @@
+<RCC>
+<qresource prefix="/">
+    <file>resources/application.png</file>
+    <file>resources/CascadiaMono.ttf</file>
+</qresource>
+</RCC>
