@@ -15,9 +15,8 @@ class CustomWidget : public QWidget
 Q_OBJECT
 
 public:
-	CustomWidget(QWidget *parent = nullptr);
-
-	~CustomWidget();
+	explicit CustomWidget(QWidget *parent = nullptr);
+	~CustomWidget() override;
 
 protected:
 	void paintEvent(QPaintEvent *event) override;   // 重载paintEvent

@@ -1,9 +1,5 @@
-//
-// Created by Flowersauce on 2024/8/19.
-//
-
-#ifndef FLOWERSAUCECLICKER_COORDINATECAPTUREWINDOW_H
-#define FLOWERSAUCECLICKER_COORDINATECAPTUREWINDOW_H
+#ifndef COORDINATECAPTUREWINDOW_H
+#define COORDINATECAPTUREWINDOW_H
 
 #include <QWidget>
 #include <QPainter>
@@ -28,4 +24,4 @@ signals:
 	void coordinatesCaptured(int x, int y);
 };
 
-#endif //FLOWERSAUCECLICKER_COORDINATECAPTUREWINDOW_H
+#endif //COORDINATECAPTUREWINDOW_H

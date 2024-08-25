@@ -1535,8 +1535,8 @@ background-color: rgba(255, 255, 255, 0); /* 背景颜色 */</string>
      </property>
     </widget>
    </widget>
-   <zorder>IOConfig_widget</zorder>
    <zorder>about_widget</zorder>
+   <zorder>IOConfig_widget</zorder>
    <zorder>function_widget_line</zorder>
    <zorder>IOConfig_widget_button</zorder>
    <zorder>about_widget_button</zorder>

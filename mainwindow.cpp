@@ -175,6 +175,14 @@ MainWindow::MainWindow(QWidget *parent) :
 		inputKey = MOUSERIGHTKEY;
 	});
 	connect(ui->DIYKeyButton, &QPushButton::clicked, this, &MainWindow::getDIYKey);
+	connect(ui->DIYKeyButton, &QPushButton::toggled, this, [=](bool status)
+	{
+		if (!status)
+		{
+				ui->IOConfig_bar_2->setEnabled(true);
+				ui->IOConfig_bar_5->setEnabled(true);
+		}
+	});
 	connect(ui->clicksButton, &QPushButton::clicked, this, [=]()
 	{
 		inputActionMode = CLICKS;
@@ -199,7 +207,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	{
 		cursorMoveMode = LOCK;
 	});
-	connect(ui->PeriodValueInputLineEdit, &QLineEdit::textChanged, this, [=](const QString& text)
+	connect(ui->PeriodValueInputLineEdit, &QLineEdit::textChanged, this, [=](const QString &text)
 	{
 		if (text.isEmpty() || text.toDouble() == 0)
 		{
@@ -222,8 +230,9 @@ MainWindow::MainWindow(QWidget *parent) :
 			ui->IOConfig_bar_6->setEnabled(false);
 			ui->startButton->setText("-STOP-");
 
-			emit startEventInjector(inputKey, inputActionMode, cursorMoveMode, diyKey, coordinateXY.at(0), coordinateXY.at(1),
-							  ui->PeriodValueInputLineEdit->text().toDouble());
+			emit startEventInjector(inputKey, inputActionMode, cursorMoveMode, diyKey, coordinateXY.at(0),
+			                        coordinateXY.at(1),
+			                        ui->PeriodValueInputLineEdit->text().toDouble());
 		}
 		else
 		{
@@ -235,11 +244,10 @@ MainWindow::MainWindow(QWidget *parent) :
 			ui->IOConfig_bar_6->setEnabled(true);
 			ui->startButton->setText("-START-");
 
-			emit stopEventInjector();
+			eventInjector->eventInjector_flag = false;
 		}
 	});
 	connect(this, &MainWindow::startEventInjector, eventInjector, &EventInjector::startTimer);
-	connect(this, &MainWindow::stopEventInjector, eventInjector, &EventInjector::killTimer);
 
 	// 页面初始化
 	ui->about_widget->setVisible(false);
@@ -251,12 +259,11 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->titleLabel->setFont(font);
 	ui->appName_label_A->setFont(font);
 	ui->appName_label_B->setFont(font);
-
 }
 
 MainWindow::~MainWindow()
 {
-	emit stopEventInjector();
+	eventInjector->eventInjector_flag = false;
 	delete eventInjector;
 	eventInjector = nullptr;
 
@@ -380,11 +387,6 @@ void MainWindow::getDIYKey()
 
 		getKeyHook = SetWindowsHookEx(WH_KEYBOARD_LL, hotkeyCaptureCallback, nullptr, 0);
 		getDIYKeyHook_flag = true;
-	}
-	else
-	{
-		ui->IOConfig_bar_2->setEnabled(true);
-		ui->IOConfig_bar_5->setEnabled(true);
 	}
 }
 
