@@ -107,8 +107,6 @@ void EventInjector::startTimer(int inputKey,
 	eventInjector_flag = true;
 	while (eventInjector_flag)
 	{
-		// 动作执行
-		SendInput(eventNum, inputEvent, sizeof(INPUT));
 		// 判断是否需要跳过延时以降低累计误差
 		if (static_cast<double>(errorTimer.elapsed()) + cumulativeError <
 		    static_cast<double>(executionTimes) * singleCycle)
@@ -118,6 +116,8 @@ void EventInjector::startTimer(int inputKey,
 		// 误差累积
 		cumulativeError +=
 				static_cast<double>(errorTimer.elapsed()) - static_cast<double>(executionTimes) * singleCycle;
+		// 动作执行
+		SendInput(eventNum, inputEvent, sizeof(INPUT));
 		// 执行次数累加
 		executionTimes++;
 	}

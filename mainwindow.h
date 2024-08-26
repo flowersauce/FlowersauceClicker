@@ -63,11 +63,12 @@ private:
 	Ui::MainWindow *ui;
 	QThread *eventInjectorThread;
 	EventInjector *eventInjector;
-	static std::unordered_map<DWORD, std::string> keyMap;   // 虚拟键值映射表
+	static const std::unordered_map<DWORD, std::string> keyMap;   // 虚拟键值映射表
 	QButtonGroup *pageButtonGroup;
 	QButtonGroup *inputKeyButtonGroup;
 	QButtonGroup *inputActionButtonGroup;
 	QButtonGroup *cursorMoveButtonGroup;
+	std::vector<bool> IOConfigBarsEnableStatus;				// 用于存储IOConfig_widget内配置栏启用状态的列表
 	bool mainWindowPin;
 	bool mousePressed;
 	bool getGlobalSwitchKeyHook_flag;                       // 获取全局开关键钩子工作状态

@@ -880,7 +880,7 @@ QLabel: disabled {
                             </string>
       </property>
       <property name="text">
-       <string>锁定</string>
+       <string>固定</string>
       </property>
       <property name="checkable">
        <bool>true</bool>
@@ -1416,8 +1416,8 @@ QLabel: disabled {
     <widget class="QLabel" name="about_label_1">
      <property name="geometry">
       <rect>
-       <x>65</x>
-       <y>200</y>
+       <x>82</x>
+       <y>212</y>
        <width>160</width>
        <height>20</height>
       </rect>
@@ -1433,14 +1433,14 @@ QLabel: disabled {
 background-color: rgba(255, 255, 255, 0); /* 背景颜色 */</string>
      </property>
      <property name="text">
-      <string>版本信息 : 1.1.0</string>
+      <string>版本信息 : 1.1.1</string>
      </property>
     </widget>
     <widget class="QLabel" name="about_label_2">
      <property name="geometry">
       <rect>
-       <x>65</x>
-       <y>220</y>
+       <x>82</x>
+       <y>234</y>
        <width>160</width>
        <height>20</height>
       </rect>
@@ -1459,34 +1459,11 @@ background-color: rgba(255, 255, 255, 0); /* 背景颜色 */</string>
       <string>程序作者 : Flowersauce</string>
      </property>
     </widget>
-    <widget class="QLabel" name="about_label_3">
-     <property name="geometry">
-      <rect>
-       <x>65</x>
-       <y>240</y>
-       <width>190</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>微软雅黑 Light</family>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">color: white; /* 字体颜色 */
-background-color: rgba(255, 255, 255, 0); /* 背景颜色 */</string>
-     </property>
-     <property name="text">
-      <string>联系方式 : 1415287780@qq.com</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="appName_label_A">
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>140</y>
+       <y>130</y>
        <width>320</width>
        <height>20</height>
       </rect>
@@ -1512,7 +1489,7 @@ background-color: rgba(255, 255, 255, 0); /* 背景颜色 */</string>
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>160</y>
+       <y>150</y>
        <width>320</width>
        <height>20</height>
       </rect>
@@ -1532,6 +1509,55 @@ background-color: rgba(255, 255, 255, 0); /* 背景颜色 */</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="about_label_3">
+     <property name="geometry">
+      <rect>
+       <x>82</x>
+       <y>256</y>
+       <width>63</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>微软雅黑 Light</family>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white; /* 字体颜色 */
+background-color: rgba(255, 255, 255, 0); /* 背景颜色 */</string>
+     </property>
+     <property name="text">
+      <string>项目地址 : </string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="about_label_4">
+     <property name="geometry">
+      <rect>
+       <x>145</x>
+       <y>256</y>
+       <width>92</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>微软雅黑 Light</family>
+       <pointsize>10</pointsize>
+       <underline>false</underline>
+       <strikeout>false</strikeout>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #ffada9; /* 字体颜色 */
+text-decoration: none; /* 无下划线 */
+background-color: rgba(255, 255, 255, 0); /* 背景颜色 */</string>
+     </property>
+     <property name="text">
+      <string>点击跳转到仓库</string>
      </property>
     </widget>
    </widget>

@@ -1,10 +1,11 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include <qDebug>
 #include <unordered_map>
 #include <string>
+#include <vector>
 #include <QDoubleValidator>
 #include <QFontDatabase>
+#include <qDebug>
 
 HHOOK getKeyHook = nullptr;
 HHOOK globalSwitchMonitorHook = nullptr;
@@ -101,11 +102,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
 	cursorMoveButtonGroup->addButton(ui->cursorFreeButton);
 	cursorMoveButtonGroup->addButton(ui->cursorLockButton);
-
-	// 设置周期值输入框的输入字符类型和数值范围
-	auto *doubleValidator = new QDoubleValidator(0.000, 99999.999, 3, ui->PeriodValueInputLineEdit);
-	doubleValidator->setNotation(QDoubleValidator::StandardNotation); // 设置QDoubleValidator为标准计数法 ( 默认为科学计数法 )
-	ui->PeriodValueInputLineEdit->setValidator(doubleValidator);
 
 	// 设置外观
 	this->setWidgetCornerRadius(28);
@@ -220,14 +216,26 @@ MainWindow::MainWindow(QWidget *parent) :
 	});
 	connect(ui->startButton, &QPushButton::toggled, this, [=](bool status)
 	{
+		std::vector<CustomWidget*> IOConfigBars = {
+			ui->IOConfig_bar_1,
+			ui->IOConfig_bar_2,
+			ui->IOConfig_bar_3,
+			ui->IOConfig_bar_4,
+			ui->IOConfig_bar_5,
+			ui->IOConfig_bar_6,
+		};
+
 		if (status)
 		{
-			ui->IOConfig_bar_1->setEnabled(false);
-			ui->IOConfig_bar_2->setEnabled(false);
-			ui->IOConfig_bar_3->setEnabled(false);
-			ui->IOConfig_bar_4->setEnabled(false);
-			ui->IOConfig_bar_5->setEnabled(false);
-			ui->IOConfig_bar_6->setEnabled(false);
+			IOConfigBarsEnableStatus.clear();
+			for (auto & IOConfigBar : IOConfigBars)
+			{
+				IOConfigBarsEnableStatus.push_back(IOConfigBar->isEnabled());
+			}
+			for (auto & IOConfigBar : IOConfigBars)
+			{
+				IOConfigBar->setEnabled(false);
+			}
 			ui->startButton->setText("-STOP-");
 
 			emit startEventInjector(inputKey, inputActionMode, cursorMoveMode, diyKey, coordinateXY.at(0),
@@ -236,19 +244,24 @@ MainWindow::MainWindow(QWidget *parent) :
 		}
 		else
 		{
-			ui->IOConfig_bar_1->setEnabled(true);
-			ui->IOConfig_bar_2->setEnabled(true);
-			ui->IOConfig_bar_3->setEnabled(true);
-			ui->IOConfig_bar_4->setEnabled(true);
-			ui->IOConfig_bar_5->setEnabled(true);
-			ui->IOConfig_bar_6->setEnabled(true);
+			for (int index = 0; index < IOConfigBars.size(); index++)
+			{
+				if (IOConfigBarsEnableStatus.at(index))
+				{
+					IOConfigBars.at(index)->setEnabled(true);
+				}
+			}
 			ui->startButton->setText("-START-");
-
+			// 修改循环标志停止事件注入
 			eventInjector->eventInjector_flag = false;
 		}
 	});
 	connect(this, &MainWindow::startEventInjector, eventInjector, &EventInjector::startTimer);
 
+	// 设置周期值输入框的输入字符类型和数值范围
+	auto *doubleValidator = new QDoubleValidator(0.0000, 99999.9999, 4, ui->PeriodValueInputLineEdit);
+	doubleValidator->setNotation(QDoubleValidator::StandardNotation); // 设置QDoubleValidator为标准计数法 ( 默认为科学计数法 )
+	ui->PeriodValueInputLineEdit->setValidator(doubleValidator);
 	// 页面初始化
 	ui->about_widget->setVisible(false);
 	// 设置字体
@@ -259,6 +272,9 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->titleLabel->setFont(font);
 	ui->appName_label_A->setFont(font);
 	ui->appName_label_B->setFont(font);
+	// 设置介绍页超链接
+	ui->about_label_4->setText("<a style='color: #ffada9; text-decoration: none;' href=\"https://github.com/flowersauce/FlowersauceClicker\">点击跳转到仓库</a>");
+	ui->about_label_4->setOpenExternalLinks(true);  // 允许外部链接打开
 }
 
 MainWindow::~MainWindow()
@@ -465,7 +481,7 @@ void MainWindow::globalSwitchMonitor(DWORD keyCode)
 	}
 }
 
-std::unordered_map<DWORD, std::string> MainWindow::keyMap = {
+const std::unordered_map<DWORD, std::string> MainWindow::keyMap = {
 		{VK_LBUTTON,    "鼠标左键"},
 		{VK_RBUTTON,    "鼠标右键"},
 		{VK_MBUTTON,    "鼠标中键"},
