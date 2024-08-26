@@ -259,7 +259,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(this, &MainWindow::startEventInjector, eventInjector, &EventInjector::startTimer);
 
 	// 设置周期值输入框的输入字符类型和数值范围
-	auto *doubleValidator = new QDoubleValidator(0.0000, 99999.9999, 4, ui->PeriodValueInputLineEdit);
+	auto *doubleValidator = new QDoubleValidator(0.000, 99999.999, 3, ui->PeriodValueInputLineEdit);
 	doubleValidator->setNotation(QDoubleValidator::StandardNotation); // 设置QDoubleValidator为标准计数法 ( 默认为科学计数法 )
 	ui->PeriodValueInputLineEdit->setValidator(doubleValidator);
 	// 页面初始化
