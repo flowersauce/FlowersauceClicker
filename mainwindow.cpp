@@ -2,10 +2,8 @@
 #include "./ui_mainwindow.h"
 #include <unordered_map>
 #include <string>
-#include <vector>
 #include <QDoubleValidator>
 #include <QFontDatabase>
-#include <qDebug>
 
 HHOOK getKeyHook = nullptr;
 HHOOK globalSwitchMonitorHook = nullptr;
@@ -59,6 +57,8 @@ MainWindow::MainWindow(QWidget *parent) :
 		primaryWidgetColor("#21252b"),
 		secondaryWidgetColor("#282c34"),
 		ui(new Ui::MainWindow),
+		soundEffectPlayer(new QMediaPlayer(this)),
+		soundEffectAudioOutput(new QAudioOutput(this)),
 		eventInjectorThread(new QThread(this)),
 		eventInjector(new EventInjector(nullptr)),
 		pageButtonGroup(new QButtonGroup(this)),
@@ -76,13 +76,15 @@ MainWindow::MainWindow(QWidget *parent) :
 		cursorMoveMode(FREE),
 		globalSwitchKey(VK_F8),
 		diyKey(0x00),
-		coordinateXY({0, 0}),
-		eventCycle(1.000)
+		coordinateXY({0, 0})
 {
 	ui->setupUi(this);
 	// 事件注入器线程初始化
 	eventInjectorThread->start();
 	eventInjector->moveToThread(eventInjectorThread);
+	// 播放器初始化
+	soundEffectPlayer->setAudioOutput(soundEffectAudioOutput);
+	soundEffectAudioOutput->setVolume(100);
 
 	mainWindow = this;
 	// 设置全局开关捕获钩子
@@ -175,8 +177,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	{
 		if (!status)
 		{
-				ui->IOConfig_bar_2->setEnabled(true);
-				ui->IOConfig_bar_5->setEnabled(true);
+			ui->IOConfig_bar_2->setEnabled(true);
+			ui->IOConfig_bar_5->setEnabled(true);
 		}
 	});
 	connect(ui->clicksButton, &QPushButton::clicked, this, [=]()
@@ -195,9 +197,18 @@ MainWindow::MainWindow(QWidget *parent) :
 			ui->IOConfig_bar_6->setEnabled(true);
 		}
 	});
-	connect(ui->cursorFreeButton, &QPushButton::clicked, this, [=]()
+	connect(ui->cursorFreeButton, &QPushButton::toggled, this, [=](bool status)
 	{
-		cursorMoveMode = FREE;
+
+		if (status)
+		{
+			cursorMoveMode = FREE;
+			ui->IOConfig_bar_2->setEnabled(false);
+		}
+		else
+		{
+			ui->IOConfig_bar_2->setEnabled(true);
+		}
 	});
 	connect(ui->cursorLockButton, &QPushButton::clicked, this, [=]()
 	{
@@ -207,53 +218,16 @@ MainWindow::MainWindow(QWidget *parent) :
 	{
 		if (text.isEmpty() || text.toDouble() == 0)
 		{
-			ui->startButton->setEnabled(false);
+			// 卸载钩子
+			UnhookWindowsHookEx(globalSwitchMonitorHook);
+			globalSwitchMonitorHook = nullptr;
+			ui->startLabel->setStyleSheet("border: none; border-radius: 8px; background-color: #1b397e; color: #7e7e7e;");  // 禁用
 		}
 		else
 		{
-			ui->startButton->setEnabled(true);
-		}
-	});
-	connect(ui->startButton, &QPushButton::toggled, this, [=](bool status)
-	{
-		std::vector<CustomWidget*> IOConfigBars = {
-			ui->IOConfig_bar_1,
-			ui->IOConfig_bar_2,
-			ui->IOConfig_bar_3,
-			ui->IOConfig_bar_4,
-			ui->IOConfig_bar_5,
-			ui->IOConfig_bar_6,
-		};
-
-		if (status)
-		{
-			IOConfigBarsEnableStatus.clear();
-			for (auto & IOConfigBar : IOConfigBars)
-			{
-				IOConfigBarsEnableStatus.push_back(IOConfigBar->isEnabled());
-			}
-			for (auto & IOConfigBar : IOConfigBars)
-			{
-				IOConfigBar->setEnabled(false);
-			}
-			ui->startButton->setText("-STOP-");
-
-			emit startEventInjector(inputKey, inputActionMode, cursorMoveMode, diyKey, coordinateXY.at(0),
-			                        coordinateXY.at(1),
-			                        ui->PeriodValueInputLineEdit->text().toDouble());
-		}
-		else
-		{
-			for (int index = 0; index < IOConfigBars.size(); index++)
-			{
-				if (IOConfigBarsEnableStatus.at(index))
-				{
-					IOConfigBars.at(index)->setEnabled(true);
-				}
-			}
-			ui->startButton->setText("-START-");
-			// 修改循环标志停止事件注入
-			eventInjector->eventInjector_flag = false;
+			// 设置全局开关捕获钩子
+			globalSwitchMonitorHook = SetWindowsHookEx(WH_KEYBOARD_LL, globalSwitchMonitorCallback, nullptr, 0);
+			ui->startLabel->setStyleSheet("border: none; border-radius: 8px; background-color: #3686f2; color: white;");  // 空闲
 		}
 	});
 	connect(this, &MainWindow::startEventInjector, eventInjector, &EventInjector::startTimer);
@@ -264,6 +238,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->PeriodValueInputLineEdit->setValidator(doubleValidator);
 	// 页面初始化
 	ui->about_widget->setVisible(false);
+	ui->IOConfig_bar_2->setEnabled(false);
 	// 设置字体
 	int fontId = QFontDatabase::addApplicationFont(":/resources/CascadiaMono.ttf");
 	QString fontFamily = QFontDatabase::applicationFontFamilies(fontId).at(0);
@@ -273,7 +248,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->appName_label_A->setFont(font);
 	ui->appName_label_B->setFont(font);
 	// 设置介绍页超链接
-	ui->about_label_4->setText("<a style='color: #ffada9; text-decoration: none;' href=\"https://github.com/flowersauce/FlowersauceClicker\">点击跳转到仓库</a>");
+	ui->about_label_4->setText(
+			"<a style='color: #ffada9; text-decoration: none;' href=\"https://github.com/flowersauce/FlowersauceClicker\">点击跳转到仓库</a>");
 	ui->about_label_4->setOpenExternalLinks(true);  // 允许外部链接打开
 }
 
@@ -359,8 +335,8 @@ void MainWindow::getGlobalSwitchKey(bool status)
 		// 卸载钩子
 		UnhookWindowsHookEx(globalSwitchMonitorHook);
 		globalSwitchMonitorHook = nullptr;
+		ui->startLabel->setStyleSheet("border: none; border-radius: 8px; background-color: #1b397e; color: #7e7e7e;");  // 禁用
 
-		ui->startButton->setEnabled(false);
 		ui->IOConfig_bar_1->setEnabled(false);
 		ui->IOConfig_bar_3->setEnabled(false);
 		ui->globalSwitchCaptureButton->clearFocus();
@@ -376,8 +352,8 @@ void MainWindow::getGlobalSwitchKey(bool status)
 	{
 		// 设置全局开关捕获钩子
 		globalSwitchMonitorHook = SetWindowsHookEx(WH_KEYBOARD_LL, globalSwitchMonitorCallback, nullptr, 0);
+		ui->startLabel->setStyleSheet("border: none; border-radius: 8px; background-color: #3686f2; color: white;");  // 空闲
 
-		ui->startButton->setEnabled(true);
 		ui->IOConfig_bar_1->setEnabled(true);
 		ui->IOConfig_bar_3->setEnabled(true);
 	}
@@ -396,7 +372,7 @@ void MainWindow::getDIYKey()
 		ui->IOConfig_bar_2->setEnabled(false);
 		ui->IOConfig_bar_3->setEnabled(false);
 		ui->IOConfig_bar_5->setEnabled(false);
-		ui->startButton->setEnabled(false);
+		ui->startLabel->setStyleSheet("border: none; border-radius: 8px; background-color: #1b397e; color: #7e7e7e;");  // 禁用
 
 		inputKey = DIYKEY;
 		ui->DIYKeyButton->setText("捕获中");
@@ -434,10 +410,10 @@ void MainWindow::obtainedKey(DWORD keyCode)
 
 			// 设置全局开关捕获钩子
 			globalSwitchMonitorHook = SetWindowsHookEx(WH_KEYBOARD_LL, globalSwitchMonitorCallback, nullptr, 0);
+			ui->startLabel->setStyleSheet("border: none; border-radius: 8px; background-color: #3686f2; color: white;");  // 空闲
 
 			ui->IOConfig_bar_1->setEnabled(true);
 			ui->IOConfig_bar_3->setEnabled(true);
-			ui->startButton->setEnabled(true);
 		}
 		else
 		{
@@ -477,7 +453,41 @@ void MainWindow::globalSwitchMonitor(DWORD keyCode)
 {
 	if (keyCode == globalSwitchKey)
 	{
-		ui->startButton->click();
+		if (!eventInjector->eventInjector_flag)
+		{
+			// 播放音频
+			soundEffectPlayer->setSource(QUrl("qrc:/resources/open.wav"));
+			soundEffectPlayer->play();
+			// 修改控件状态
+			ui->IOConfigBars_widget->setEnabled(false);
+			ui->startLabel->setStyleSheet("border: none; border-radius: 8px; background-color: #ff5f56; color: white;");  // 工作中
+			ui->startLabel->setText("按下 -全局开关- 终止");
+			// 启动事件注入
+			emit startEventInjector(inputKey, inputActionMode, cursorMoveMode, diyKey, coordinateXY.at(0),
+			                        coordinateXY.at(1),
+			                        ui->PeriodValueInputLineEdit->text().toDouble());
+			while(!eventInjector->eventInjector_flag)
+			{
+				QThread::usleep(1000);
+			}
+		}
+		else
+		{
+			// 播放音频
+			soundEffectPlayer->setSource(QUrl("qrc:/resources/close.wav"));
+			soundEffectPlayer->play();
+			// 修改控件状态
+			ui->IOConfigBars_widget->setEnabled(true);
+			ui->startLabel->setStyleSheet("border: none; border-radius: 8px; background-color: #3686f2; color: white;");  // 空闲
+			ui->startLabel->setText("按下 -全局开关- 启动");
+			// 修改循环标志停止事件注入
+			eventInjector->eventInjector_flag = false;
+
+			while(eventInjector->eventInjector_flag)
+			{
+				QThread::usleep(1000);
+			}
+		}
 	}
 }
 

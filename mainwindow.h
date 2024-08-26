@@ -5,6 +5,8 @@
 #include <array>
 #include <QButtonGroup>
 #include <QThread>
+#include <QMediaPlayer>
+#include <QAudioOutput>
 #include "customwidget.h"
 #include "coordinatecapturewindow.h"
 #include "eventinjector.h"
@@ -61,29 +63,29 @@ protected:
 
 private:
 	Ui::MainWindow *ui;
+	QMediaPlayer *soundEffectPlayer;
+	QAudioOutput *soundEffectAudioOutput;
 	QThread *eventInjectorThread;
 	EventInjector *eventInjector;
-	static const std::unordered_map<DWORD, std::string> keyMap;   // 虚拟键值映射表
+	static const std::unordered_map<DWORD, std::string> keyMap;     // 虚拟键值映射表
 	QButtonGroup *pageButtonGroup;
 	QButtonGroup *inputKeyButtonGroup;
 	QButtonGroup *inputActionButtonGroup;
 	QButtonGroup *cursorMoveButtonGroup;
-	std::vector<bool> IOConfigBarsEnableStatus;				// 用于存储IOConfig_widget内配置栏启用状态的列表
 	bool mainWindowPin;
 	bool mousePressed;
-	bool getGlobalSwitchKeyHook_flag;                       // 获取全局开关键钩子工作状态
-	bool getDIYKeyHook_flag;                                // 获取自定义按键钩子工作状态
-	bool coordinateCaptureWidget_flag;                      // 坐标捕获窗口工作状态
-	QPoint mouseStartPoint;                                 // 记录鼠标按下时的全局位置
-	QPoint windowStartPoint;                                // 记录窗口初始位置
-	int pageNum;                                            // 页码
-	int inputKey;                                           // 输入按键
-	int inputActionMode;                                    // 输入行为模式
-	int cursorMoveMode;                                     // 光标位置模式
-	DWORD globalSwitchKey;                                  // 全局开关键
-	DWORD diyKey;                                           // 自定义按键
-	std::array<int, 2> coordinateXY;                        // 坐标
-	double eventCycle;                                      // 事件周期 (s)
+	bool getGlobalSwitchKeyHook_flag;                               // 获取全局开关键钩子工作状态
+	bool getDIYKeyHook_flag;                                        // 获取自定义按键钩子工作状态
+	bool coordinateCaptureWidget_flag;                              // 坐标捕获窗口工作状态
+	QPoint mouseStartPoint;                                         // 记录鼠标按下时的全局位置
+	QPoint windowStartPoint;                                        // 记录窗口初始位置
+	int pageNum;                                                    // 页码
+	int inputKey;                                                   // 输入按键
+	int inputActionMode;                                            // 输入行为模式
+	int cursorMoveMode;                                             // 光标位置模式
+	DWORD globalSwitchKey;                                          // 全局开关键
+	DWORD diyKey;                                                   // 自定义按键
+	std::array<int, 2> coordinateXY;                                // 坐标
 
 private slots:
 

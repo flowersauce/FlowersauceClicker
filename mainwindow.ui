@@ -250,1080 +250,6 @@ background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
      <bool>true</bool>
     </property>
    </widget>
-   <widget class="QWidget" name="IOConfig_widget" native="true">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>140</x>
-      <y>0</y>
-      <width>320</width>
-      <height>292</height>
-     </rect>
-    </property>
-    <property name="focusPolicy">
-     <enum>Qt::FocusPolicy::NoFocus</enum>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgba(255, 255, 255, 0); /* 背景颜色 */</string>
-    </property>
-    <widget class="CustomWidget" name="IOConfig_bar_3" native="true">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>54</y>
-       <width>320</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::FocusPolicy::NoFocus</enum>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: #484f5e; /* 背景颜色 */
-border-radius: 8px; /* 设置圆角 */
-                        </string>
-     </property>
-     <widget class="QLabel" name="IOConfig_label_3">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>80</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>80</width>
-        <height>32</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>80</width>
-        <height>21</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <family>微软雅黑 Light</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::ClickFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLabel {
-		border: none;
-		border-top-left-radius: 8px;
-		border-bottom-left-radius: 8px;
-		border-top-right-radius: 0px;
-		border-bottom-right-radius: 0px;
-		background-color: #656f84;
-		color: white; 
-}
-
-QLabel: disabled {
-		color: #7e7e7e; 
-}</string>
-      </property>
-      <property name="text">
-       <string>输入按键 :</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="mouseLeftButton">
-      <property name="geometry">
-       <rect>
-        <x>80</x>
-        <y>0</y>
-        <width>60</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>微软雅黑 Light</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::ClickFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-                                outline: none;
-                                border: none;
-                                border-radius:0px; /* 设置圆角 */
-                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
-                                color: white;
-                                }
-
-                                QPushButton:hover {
-                                background-color: #262b32;
-                                }
-
-                                QPushButton:pressed {
-                                background-color: #21252b;
-                                }
-
-                                QPushButton:checked {
-                                background-color: #21252b;
-                                }
-
-                                QPushButton:disabled {
-                                color: #7e7e7e;
-                                }
-                            </string>
-      </property>
-      <property name="text">
-       <string>🖱左键</string>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="mouseMiddleButton">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>0</y>
-        <width>60</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>微软雅黑 Light</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::ClickFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-                                outline: none;
-                                border: none;
-                                border-radius:0px; /* 设置圆角 */
-                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
-                                color: white;
-                                }
-
-                                QPushButton:hover {
-                                background-color: #262b32;
-                                }
-
-                                QPushButton:pressed {
-                                background-color: #21252b;
-                                }
-
-                                QPushButton:checked {
-                                background-color: #21252b;
-                                }
-
-                                QPushButton:disabled {
-                                color: #7e7e7e;
-                                }
-                            </string>
-      </property>
-      <property name="text">
-       <string>🖱中键</string>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="mouseRightButton">
-      <property name="geometry">
-       <rect>
-        <x>200</x>
-        <y>0</y>
-        <width>60</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>微软雅黑 Light</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::ClickFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-                                outline: none;
-                                border: none;
-                                border-radius:0px; /* 设置圆角 */
-                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
-                                color: white;
-                                }
-
-                                QPushButton:hover {
-                                background-color: #262b32;
-                                }
-
-                                QPushButton:pressed {
-                                background-color: #21252b;
-                                }
-
-                                QPushButton:checked {
-                                background-color: #21252b;
-                                }
-
-                                QPushButton:disabled {
-                                color: #7e7e7e;
-                                }
-                            </string>
-      </property>
-      <property name="text">
-       <string>🖱右键</string>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="DIYKeyButton">
-      <property name="geometry">
-       <rect>
-        <x>260</x>
-        <y>0</y>
-        <width>60</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>微软雅黑 Light</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::ClickFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-                                outline: none;
-                                border: none;
-                                border-top-left-radius: 0px;
-                                border-bottom-left-radius: 0px;
-                                border-top-right-radius: 8px;
-                                border-bottom-right-radius: 8px;
-                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
-                                color: white;
-                                }
-
-                                QPushButton:hover {
-                                background-color: #262b32;
-                                }
-
-                                QPushButton:pressed {
-                                background-color: #21252b;
-                                }
-
-                                QPushButton:checked {
-                                background-color: #21252b;
-                                }
-
-                                QPushButton:disabled {
-                                color: #7e7e7e;
-                                }
-                            </string>
-      </property>
-      <property name="text">
-       <string>自定义</string>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </widget>
-    <widget class="CustomWidget" name="IOConfig_bar_4" native="true">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>92</y>
-       <width>320</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::FocusPolicy::NoFocus</enum>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: #484f5e; /* 背景颜色 */
-                            border-radius: 8px; /* 设置圆角 */
-                        </string>
-     </property>
-     <widget class="QLabel" name="IOConfig_label_4">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>80</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>微软雅黑 Light</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::ClickFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLabel {
-		border: none;
-		border-top-left-radius: 8px;
-		border-bottom-left-radius: 8px;
-		border-top-right-radius: 0px;
-		border-bottom-right-radius: 0px;
-		background-color: #656f84;
-		color: white; 
-}
-
-QLabel: disabled {
-		color: #7e7e7e; 
-}</string>
-      </property>
-      <property name="text">
-       <string>输入行为 :</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="clicksButton">
-      <property name="geometry">
-       <rect>
-        <x>80</x>
-        <y>0</y>
-        <width>120</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>微软雅黑 Light</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::ClickFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-                                outline: none;
-                                border-radius:0px; /* 设置圆角 */
-                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
-                                color: white;
-                                }
-
-                                QPushButton:hover {
-                                background-color: #262b32;
-                                }
-
-                                QPushButton:pressed {
-                                background-color: #21252b;
-                                }
-
-                                QPushButton:checked {
-                                background-color: #21252b;
-                                }
-
-                                QPushButton:disabled {
-                                color: #7e7e7e;
-                                }
-                            </string>
-      </property>
-      <property name="text">
-       <string>连击</string>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-      <property name="autoExclusive">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pressButton">
-      <property name="geometry">
-       <rect>
-        <x>200</x>
-        <y>0</y>
-        <width>120</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>微软雅黑 Light</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::ClickFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-                                outline: none;
-                                border: none;
-                                border-top-left-radius: 0px;
-                                border-bottom-left-radius: 0px;
-                                border-top-right-radius: 8px;
-                                border-bottom-right-radius: 8px;
-                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
-                                color: white;
-                                }
-
-                                QPushButton:hover {
-                                background-color: #262b32;
-                                }
-
-                                QPushButton:pressed {
-                                background-color: #21252b;
-                                }
-
-                                QPushButton:checked {
-                                background-color: #21252b;
-                                }
-
-                                QPushButton:disabled {
-                                color: #7e7e7e;
-                                }
-                            </string>
-      </property>
-      <property name="text">
-       <string>长按</string>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-      <property name="autoExclusive">
-       <bool>false</bool>
-      </property>
-     </widget>
-    </widget>
-    <widget class="CustomWidget" name="IOConfig_bar_5" native="true">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>130</y>
-       <width>320</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::FocusPolicy::NoFocus</enum>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: #484f5e; /* 背景颜色 */
-                            border-radius: 8px; /* 设置圆角 */
-                        </string>
-     </property>
-     <widget class="QLabel" name="IOConfig_label_5">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>80</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>微软雅黑 Light</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::ClickFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLabel {
-		border: none;
-		border-top-left-radius: 8px;
-		border-bottom-left-radius: 8px;
-		border-top-right-radius: 0px;
-		border-bottom-right-radius: 0px;
-		background-color: #656f84;
-		color: white; 
-}
-
-QLabel: disabled {
-		color: #7e7e7e; 
-}</string>
-      </property>
-      <property name="text">
-       <string>光标移动 :</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="cursorFreeButton">
-      <property name="geometry">
-       <rect>
-        <x>80</x>
-        <y>0</y>
-        <width>120</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>微软雅黑 Light</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::ClickFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-                                outline: none;
-                                border-radius:0px; /* 设置圆角 */
-                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
-                                color: white;
-                                }
-
-                                QPushButton:hover {
-                                background-color: #262b32;
-                                }
-
-                                QPushButton:pressed {
-                                background-color: #21252b;
-                                }
-
-                                QPushButton:checked {
-                                background-color: #21252b;
-                                }
-
-                                QPushButton:disabled {
-                                color: #7e7e7e;
-                                }
-                            </string>
-      </property>
-      <property name="text">
-       <string>自由</string>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-      <property name="autoExclusive">
-       <bool>false</bool>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="cursorLockButton">
-      <property name="geometry">
-       <rect>
-        <x>200</x>
-        <y>0</y>
-        <width>120</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>微软雅黑 Light</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::ClickFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-                                outline: none;
-                                border: none;
-                                border-top-left-radius: 0px;
-                                border-bottom-left-radius: 0px;
-                                border-top-right-radius: 8px;
-                                border-bottom-right-radius: 8px;
-                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
-                                color: white;
-                                }
-
-                                QPushButton:hover {
-                                background-color: #262b32;
-                                }
-
-                                QPushButton:pressed {
-                                background-color: #21252b;
-                                }
-
-                                QPushButton:checked {
-                                background-color: #21252b;
-                                }
-
-                                QPushButton:disabled {
-                                color: #7e7e7e;
-                                }
-                            </string>
-      </property>
-      <property name="text">
-       <string>固定</string>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-      <property name="autoExclusive">
-       <bool>false</bool>
-      </property>
-     </widget>
-    </widget>
-    <widget class="CustomWidget" name="IOConfig_bar_6" native="true">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>168</y>
-       <width>320</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::FocusPolicy::NoFocus</enum>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">border-radius: 8px; /* 设置圆角 */
-                            background-color: #484f5e; /* 背景颜色 */
-
-                        </string>
-     </property>
-     <widget class="QLabel" name="IOConfig_label_6">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>80</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>微软雅黑 Light</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::ClickFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLabel {
-		border: none;
-		border-top-left-radius: 8px;
-		border-bottom-left-radius: 8px;
-		border-top-right-radius: 0px;
-		border-bottom-right-radius: 0px;
-		background-color: #656f84;
-		color: white; 
-}
-
-QLabel: disabled {
-		color: #7e7e7e; 
-}</string>
-      </property>
-      <property name="text">
-       <string>输入周期 :</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="PeriodValueInputLineEdit">
-      <property name="geometry">
-       <rect>
-        <x>80</x>
-        <y>0</y>
-        <width>200</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::ClickFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">
-
-                                QLineEdit {
-                                outline: none;
-                                border-radius: 0px; /* 设置圆角 */
-                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
-							color: white;
-                                }
-
-                                QLineEdit:disabled {
-                                color: #7e7e7e;
-                                }
-                            </string>
-      </property>
-      <property name="inputMask">
-       <string/>
-      </property>
-      <property name="text">
-       <string>1.000</string>
-      </property>
-      <property name="maxLength">
-       <number>20</number>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="IOConfig_label_7">
-      <property name="geometry">
-       <rect>
-        <x>280</x>
-        <y>0</y>
-        <width>40</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>80</width>
-        <height>32</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <family>微软雅黑 Light</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::ClickFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLabel {
-		border: none;
-		border-top-left-radius: 0px;
-		border-bottom-left-radius: 0px;
-		border-top-right-radius: 8px;
-		border-bottom-right-radius: 8px;
-		background-color: #656f84;
-		color: white; 
-}
-
-QLabel: disabled {
-		color: #7e7e7e; 
-}</string>
-      </property>
-      <property name="text">
-       <string>秒</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
-      </property>
-     </widget>
-    </widget>
-    <widget class="CustomWidget" name="IOConfig_bar_1" native="true">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>16</y>
-       <width>157</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::FocusPolicy::NoFocus</enum>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: #484f5e;
-                            border-radius: 8px; /* 设置圆角 */
-                        </string>
-     </property>
-     <widget class="QLabel" name="IOConfig_label_1">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>80</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>微软雅黑 Light</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::ClickFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLabel {
-		border: none;
-		border-top-left-radius: 8px;
-		border-bottom-left-radius: 8px;
-		border-top-right-radius: 0px;
-		border-bottom-right-radius: 0px;
-		background-color: #656f84;
-		color: white; 
-}
-
-QLabel: disabled {
-		color: #7e7e7e; 
-}</string>
-      </property>
-      <property name="text">
-       <string>全局开关 :</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="globalSwitchCaptureButton">
-      <property name="geometry">
-       <rect>
-        <x>80</x>
-        <y>0</y>
-        <width>77</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>微软雅黑 Light</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::ClickFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-                                outline: none;
-                                border: none;
-                                border-top-left-radius: 0px;
-                                border-bottom-left-radius: 0px;
-                                border-top-right-radius: 8px;
-                                border-bottom-right-radius: 8px;
-                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
-                                color: white;
-                                }
-
-                                QPushButton:hover {
-                                background-color: #262b32;
-                                }
-
-                                QPushButton:pressed {
-                                background-color: #21252b;
-                                }
-
-                                QPushButton:checked {
-                                background-color: #21252b;
-                                }
-
-                                QPushButton:disabled {
-                                color: #7e7e7e;
-                                }
-                            </string>
-      </property>
-      <property name="text">
-       <string>F8</string>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-      <property name="autoExclusive">
-       <bool>false</bool>
-      </property>
-     </widget>
-    </widget>
-    <widget class="CustomWidget" name="IOConfig_bar_2" native="true">
-     <property name="geometry">
-      <rect>
-       <x>163</x>
-       <y>16</y>
-       <width>157</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::FocusPolicy::NoFocus</enum>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: #484f5e; /* 背景颜色 */
-                            border-radius: 8px; /* 设置圆角 */
-                        </string>
-     </property>
-     <widget class="QLabel" name="IOConfig_label_2">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>80</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>微软雅黑 Light</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::ClickFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLabel {
-		border: none;
-		border-top-left-radius: 8px;
-		border-bottom-left-radius: 8px;
-		border-top-right-radius: 0px;
-		border-bottom-right-radius: 0px;
-		background-color: #656f84;
-		color: white; 
-}
-
-QLabel: disabled {
-		color: #7e7e7e; 
-}</string>
-      </property>
-      <property name="text">
-       <string>坐标设置 :</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignmentFlag::AlignCenter</set>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="cursorCoordinateCaptureButton">
-      <property name="geometry">
-       <rect>
-        <x>80</x>
-        <y>0</y>
-        <width>77</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>微软雅黑 Light</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::FocusPolicy::ClickFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-                                outline: none;
-                                border: none;
-                                border-top-left-radius: 0px;
-                                border-bottom-left-radius: 0px;
-                                border-top-right-radius: 8px;
-                                border-bottom-right-radius: 8px;
-                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
-                                color: white;
-                                }
-
-                                QPushButton:hover {
-                                background-color: #262b32;
-                                }
-
-                                QPushButton:pressed {
-                                background-color: #21252b;
-                                }
-
-                                QPushButton:checked {
-                                background-color: #21252b;
-                                }
-
-                                QPushButton:disabled {
-                                color: #7e7e7e;
-                                }
-                            </string>
-      </property>
-      <property name="text">
-       <string>0,0</string>
-      </property>
-      <property name="checkable">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QPushButton" name="startButton">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>244</y>
-       <width>320</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Cascadia Mono</family>
-       <pointsize>11</pointsize>
-      </font>
-     </property>
-     <property name="focusPolicy">
-      <enum>Qt::FocusPolicy::StrongFocus</enum>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QPushButton {
-                            outline: none;
-                            border: none;
-                            border-radius: 8px;
-                            background-color: #3686f2; /* 背景颜色 */
-                            color: white;
-                            }
-
-                            QPushButton:hover {
-                            background-color: #3973ff;
-                            }
-
-                            QPushButton:pressed {
-                            background-color: #1b397e;
-                            }
-
-                            QPushButton:checked {
-                            background-color: #ff5f56;
-                            }
-
-                            QPushButton:disabled {
-                            background-color: #1b397e;
-						color: #7e7e7e;
-                            }
-                        </string>
-     </property>
-     <property name="text">
-      <string>-START-</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <property name="autoExclusive">
-      <bool>false</bool>
-     </property>
-    </widget>
-   </widget>
    <widget class="QPushButton" name="about_widget_button">
     <property name="geometry">
      <rect>
@@ -1433,7 +359,7 @@ QLabel: disabled {
 background-color: rgba(255, 255, 255, 0); /* 背景颜色 */</string>
      </property>
      <property name="text">
-      <string>版本信息 : 1.1.1</string>
+      <string>版本信息 : 1.2.0</string>
      </property>
     </widget>
     <widget class="QLabel" name="about_label_2">
@@ -1561,11 +487,1104 @@ background-color: rgba(255, 255, 255, 0); /* 背景颜色 */</string>
      </property>
     </widget>
    </widget>
+   <widget class="QWidget" name="IOConfig_widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>0</y>
+      <width>320</width>
+      <height>292</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(255, 255, 255, 0); /* 背景颜色 */</string>
+    </property>
+    <widget class="QWidget" name="IOConfigBars_widget" native="true">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>320</width>
+       <height>220</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::FocusPolicy::NoFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(255, 255, 255, 0); /* 背景颜色 */</string>
+     </property>
+     <widget class="CustomWidget" name="IOConfig_bar_3" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>54</y>
+        <width>320</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #484f5e; /* 背景颜色 */
+border-radius: 8px; /* 设置圆角 */
+                        </string>
+      </property>
+      <widget class="QLabel" name="IOConfig_label_3">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>80</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>80</width>
+         <height>32</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>21</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑 Light</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::FocusPolicy::ClickFocus</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+		border: none;
+		border-top-left-radius: 8px;
+		border-bottom-left-radius: 8px;
+		border-top-right-radius: 0px;
+		border-bottom-right-radius: 0px;
+		background-color: #656f84;
+		color: white; 
+}
+
+
+QLabel:disabled {
+		color: #7e7e7e;
+}</string>
+       </property>
+       <property name="text">
+        <string>输入按键 :</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="mouseLeftButton">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>0</y>
+         <width>60</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑 Light</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::FocusPolicy::ClickFocus</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+                                outline: none;
+                                border: none;
+                                border-radius:0px; /* 设置圆角 */
+                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
+                                color: white;
+                                }
+
+                                QPushButton:hover {
+                                background-color: #262b32;
+                                }
+
+                                QPushButton:pressed {
+                                background-color: #21252b;
+                                }
+
+                                QPushButton:checked {
+                                background-color: #21252b;
+                                }
+
+                                QPushButton:disabled {
+                                color: #7e7e7e;
+                                }
+                            </string>
+       </property>
+       <property name="text">
+        <string>🖱左键</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="mouseMiddleButton">
+       <property name="geometry">
+        <rect>
+         <x>140</x>
+         <y>0</y>
+         <width>60</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑 Light</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::FocusPolicy::ClickFocus</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+                                outline: none;
+                                border: none;
+                                border-radius:0px; /* 设置圆角 */
+                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
+                                color: white;
+                                }
+
+                                QPushButton:hover {
+                                background-color: #262b32;
+                                }
+
+                                QPushButton:pressed {
+                                background-color: #21252b;
+                                }
+
+                                QPushButton:checked {
+                                background-color: #21252b;
+                                }
+
+                                QPushButton:disabled {
+                                color: #7e7e7e;
+                                }
+                            </string>
+       </property>
+       <property name="text">
+        <string>🖱中键</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="mouseRightButton">
+       <property name="geometry">
+        <rect>
+         <x>200</x>
+         <y>0</y>
+         <width>60</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑 Light</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::FocusPolicy::ClickFocus</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+                                outline: none;
+                                border: none;
+                                border-radius:0px; /* 设置圆角 */
+                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
+                                color: white;
+                                }
+
+                                QPushButton:hover {
+                                background-color: #262b32;
+                                }
+
+                                QPushButton:pressed {
+                                background-color: #21252b;
+                                }
+
+                                QPushButton:checked {
+                                background-color: #21252b;
+                                }
+
+                                QPushButton:disabled {
+                                color: #7e7e7e;
+                                }
+                            </string>
+       </property>
+       <property name="text">
+        <string>🖱右键</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="DIYKeyButton">
+       <property name="geometry">
+        <rect>
+         <x>260</x>
+         <y>0</y>
+         <width>60</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑 Light</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::FocusPolicy::ClickFocus</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+                                outline: none;
+                                border: none;
+                                border-top-left-radius: 0px;
+                                border-bottom-left-radius: 0px;
+                                border-top-right-radius: 8px;
+                                border-bottom-right-radius: 8px;
+                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
+                                color: white;
+                                }
+
+                                QPushButton:hover {
+                                background-color: #262b32;
+                                }
+
+                                QPushButton:pressed {
+                                background-color: #21252b;
+                                }
+
+                                QPushButton:checked {
+                                background-color: #21252b;
+                                }
+
+                                QPushButton:disabled {
+                                color: #7e7e7e;
+                                }
+                            </string>
+       </property>
+       <property name="text">
+        <string>自定义</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </widget>
+     <widget class="CustomWidget" name="IOConfig_bar_4" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>92</y>
+        <width>320</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #484f5e; /* 背景颜色 */
+                            border-radius: 8px; /* 设置圆角 */
+                        </string>
+      </property>
+      <widget class="QLabel" name="IOConfig_label_4">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>80</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑 Light</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::FocusPolicy::ClickFocus</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+		border: none;
+		border-top-left-radius: 8px;
+		border-bottom-left-radius: 8px;
+		border-top-right-radius: 0px;
+		border-bottom-right-radius: 0px;
+		background-color: #656f84;
+		color: white; 
+}
+
+
+QLabel:disabled {
+		color: #7e7e7e;
+}</string>
+       </property>
+       <property name="text">
+        <string>输入行为 :</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="clicksButton">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>0</y>
+         <width>120</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑 Light</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::FocusPolicy::ClickFocus</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+                                outline: none;
+                                border-radius:0px; /* 设置圆角 */
+                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
+                                color: white;
+                                }
+
+                                QPushButton:hover {
+                                background-color: #262b32;
+                                }
+
+                                QPushButton:pressed {
+                                background-color: #21252b;
+                                }
+
+                                QPushButton:checked {
+                                background-color: #21252b;
+                                }
+
+                                QPushButton:disabled {
+                                color: #7e7e7e;
+                                }
+                            </string>
+       </property>
+       <property name="text">
+        <string>连击</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+       <property name="autoExclusive">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="pressButton">
+       <property name="geometry">
+        <rect>
+         <x>200</x>
+         <y>0</y>
+         <width>120</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑 Light</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::FocusPolicy::ClickFocus</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+                                outline: none;
+                                border: none;
+                                border-top-left-radius: 0px;
+                                border-bottom-left-radius: 0px;
+                                border-top-right-radius: 8px;
+                                border-bottom-right-radius: 8px;
+                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
+                                color: white;
+                                }
+
+                                QPushButton:hover {
+                                background-color: #262b32;
+                                }
+
+                                QPushButton:pressed {
+                                background-color: #21252b;
+                                }
+
+                                QPushButton:checked {
+                                background-color: #21252b;
+                                }
+
+                                QPushButton:disabled {
+                                color: #7e7e7e;
+                                }
+                            </string>
+       </property>
+       <property name="text">
+        <string>长按</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="autoExclusive">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </widget>
+     <widget class="CustomWidget" name="IOConfig_bar_5" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>130</y>
+        <width>320</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #484f5e; /* 背景颜色 */
+                            border-radius: 8px; /* 设置圆角 */
+                        </string>
+      </property>
+      <widget class="QLabel" name="IOConfig_label_5">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>80</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑 Light</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::FocusPolicy::ClickFocus</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+		border: none;
+		border-top-left-radius: 8px;
+		border-bottom-left-radius: 8px;
+		border-top-right-radius: 0px;
+		border-bottom-right-radius: 0px;
+		background-color: #656f84;
+		color: white; 
+}
+
+
+QLabel:disabled {
+		color: #7e7e7e;
+}</string>
+       </property>
+       <property name="text">
+        <string>光标移动 :</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="cursorFreeButton">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>0</y>
+         <width>120</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑 Light</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::FocusPolicy::ClickFocus</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+                                outline: none;
+                                border-radius:0px; /* 设置圆角 */
+                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
+                                color: white;
+                                }
+
+                                QPushButton:hover {
+                                background-color: #262b32;
+                                }
+
+                                QPushButton:pressed {
+                                background-color: #21252b;
+                                }
+
+                                QPushButton:checked {
+                                background-color: #21252b;
+                                }
+
+                                QPushButton:disabled {
+                                color: #7e7e7e;
+                                }
+                            </string>
+       </property>
+       <property name="text">
+        <string>自由</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+       <property name="autoExclusive">
+        <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="cursorLockButton">
+       <property name="geometry">
+        <rect>
+         <x>200</x>
+         <y>0</y>
+         <width>120</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑 Light</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::FocusPolicy::ClickFocus</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+                                outline: none;
+                                border: none;
+                                border-top-left-radius: 0px;
+                                border-bottom-left-radius: 0px;
+                                border-top-right-radius: 8px;
+                                border-bottom-right-radius: 8px;
+                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
+                                color: white;
+                                }
+
+                                QPushButton:hover {
+                                background-color: #262b32;
+                                }
+
+                                QPushButton:pressed {
+                                background-color: #21252b;
+                                }
+
+                                QPushButton:checked {
+                                background-color: #21252b;
+                                }
+
+                                QPushButton:disabled {
+                                color: #7e7e7e;
+                                }
+                            </string>
+       </property>
+       <property name="text">
+        <string>固定</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="autoExclusive">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </widget>
+     <widget class="CustomWidget" name="IOConfig_bar_6" native="true">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>168</y>
+        <width>320</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-radius: 8px; /* 设置圆角 */
+                            background-color: #484f5e; /* 背景颜色 */
+
+                        </string>
+      </property>
+      <widget class="QLabel" name="IOConfig_label_6">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>80</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑 Light</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::FocusPolicy::ClickFocus</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+		border: none;
+		border-top-left-radius: 8px;
+		border-bottom-left-radius: 8px;
+		border-top-right-radius: 0px;
+		border-bottom-right-radius: 0px;
+		background-color: #656f84;
+		color: white; 
+}
+
+QLabel:disabled {
+		color: #7e7e7e;
+}</string>
+       </property>
+       <property name="text">
+        <string>输入周期 :</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="PeriodValueInputLineEdit">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>0</y>
+         <width>200</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::FocusPolicy::ClickFocus</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">
+
+                                QLineEdit {
+                                outline: none;
+                                border-radius: 0px; /* 设置圆角 */
+                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
+							color: white;
+                                }
+
+                                QLineEdit:disabled {
+                                color: #7e7e7e;
+                                }
+                            </string>
+       </property>
+       <property name="inputMask">
+        <string/>
+       </property>
+       <property name="text">
+        <string>1.000</string>
+       </property>
+       <property name="maxLength">
+        <number>20</number>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="IOConfig_label_7">
+       <property name="geometry">
+        <rect>
+         <x>280</x>
+         <y>0</y>
+         <width>40</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>32</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑 Light</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::FocusPolicy::ClickFocus</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+		border: none;
+		border-top-left-radius: 0px;
+		border-bottom-left-radius: 0px;
+		border-top-right-radius: 8px;
+		border-bottom-right-radius: 8px;
+		background-color: #656f84;
+		color: white; 
+}
+
+
+QLabel:disabled {
+		color: #7e7e7e;
+}</string>
+       </property>
+       <property name="text">
+        <string>秒</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+     </widget>
+     <widget class="CustomWidget" name="IOConfig_bar_1" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>16</y>
+        <width>157</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #484f5e;
+                            border-radius: 8px; /* 设置圆角 */
+                        </string>
+      </property>
+      <widget class="QLabel" name="IOConfig_label_1">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>80</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑 Light</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::FocusPolicy::ClickFocus</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+		border: none;
+		border-top-left-radius: 8px;
+		border-bottom-left-radius: 8px;
+		border-top-right-radius: 0px;
+		border-bottom-right-radius: 0px;
+		background-color: #656f84;
+		color: white; 
+}
+
+
+QLabel:disabled {
+		color: #7e7e7e;
+}</string>
+       </property>
+       <property name="text">
+        <string>全局开关 :</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="globalSwitchCaptureButton">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>0</y>
+         <width>77</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑 Light</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::FocusPolicy::ClickFocus</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+                                outline: none;
+                                border: none;
+                                border-top-left-radius: 0px;
+                                border-bottom-left-radius: 0px;
+                                border-top-right-radius: 8px;
+                                border-bottom-right-radius: 8px;
+                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
+                                color: white;
+                                }
+
+                                QPushButton:hover {
+                                background-color: #262b32;
+                                }
+
+                                QPushButton:pressed {
+                                background-color: #21252b;
+                                }
+
+                                QPushButton:checked {
+                                background-color: #21252b;
+                                }
+
+                                QPushButton:disabled {
+                                color: #7e7e7e;
+                                }
+                            </string>
+       </property>
+       <property name="text">
+        <string>F8</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="autoExclusive">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </widget>
+     <widget class="CustomWidget" name="IOConfig_bar_2" native="true">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>163</x>
+        <y>16</y>
+        <width>157</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #484f5e; /* 背景颜色 */
+                            border-radius: 8px; /* 设置圆角 */
+                        </string>
+      </property>
+      <widget class="QLabel" name="IOConfig_label_2">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>80</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑 Light</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::FocusPolicy::ClickFocus</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QLabel {
+		border: none;
+		border-top-left-radius: 8px;
+		border-bottom-left-radius: 8px;
+		border-top-right-radius: 0px;
+		border-bottom-right-radius: 0px;
+		background-color: #656f84;
+		color: white; 
+}
+
+QLabel:disabled {
+		color: #7e7e7e;
+}</string>
+       </property>
+       <property name="text">
+        <string>坐标设置 :</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="cursorCoordinateCaptureButton">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>0</y>
+         <width>77</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>微软雅黑 Light</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="focusPolicy">
+        <enum>Qt::FocusPolicy::ClickFocus</enum>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+                                outline: none;
+                                border: none;
+                                border-top-left-radius: 0px;
+                                border-bottom-left-radius: 0px;
+                                border-top-right-radius: 8px;
+                                border-bottom-right-radius: 8px;
+                                background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
+                                color: white;
+                                }
+
+                                QPushButton:hover {
+                                background-color: #262b32;
+                                }
+
+                                QPushButton:pressed {
+                                background-color: #21252b;
+                                }
+
+                                QPushButton:checked {
+                                background-color: #21252b;
+                                }
+
+                                QPushButton:disabled {
+                                color: #7e7e7e;
+                                }
+                            </string>
+       </property>
+       <property name="text">
+        <string>0,0</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QLabel" name="startLabel">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>244</y>
+       <width>320</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>微软雅黑 Light</family>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+		border: none;
+		border-radius: 8px;
+		background-color: #3686f2; /* 背景颜色 */
+		color: white;
+}
+
+QLabel: disabled {
+		background-color: #1b397e;
+         color: #7e7e7e;
+}</string>
+     </property>
+     <property name="text">
+      <string>按下 -全局开关- 启动</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignCenter</set>
+     </property>
+    </widget>
+   </widget>
    <zorder>about_widget</zorder>
-   <zorder>IOConfig_widget</zorder>
    <zorder>function_widget_line</zorder>
    <zorder>IOConfig_widget_button</zorder>
    <zorder>about_widget_button</zorder>
+   <zorder>IOConfig_widget</zorder>
   </widget>
  </widget>
  <customwidgets>
