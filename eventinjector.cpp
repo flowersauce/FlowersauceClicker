@@ -122,8 +122,8 @@ void EventInjector::startTimer(int inputKey,
 		executionTimes++;
 	}
 
-	// 按键长按后状态复原
-	if (inputKey == DIYKEY && inputActionMode == PRESS)
+	// 长按模式按键状态复原
+	if (inputActionMode == PRESS)
 	{
 		SendInput(eventNum, &inputEvent[1], sizeof(INPUT));
 	}

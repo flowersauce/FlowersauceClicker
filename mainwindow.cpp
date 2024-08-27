@@ -1,54 +1,29 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include <unordered_map>
-#include <string>
 #include <QDoubleValidator>
 #include <QFontDatabase>
 
-HHOOK getKeyHook = nullptr;
-HHOOK globalSwitchMonitorHook = nullptr;
+HHOOK globalKeyboardCaptureHook = nullptr;
 static MainWindow *mainWindow = nullptr;
 
 // =============================================================================================== HookCallback
-// 全局监控回调函数
-LRESULT CALLBACK globalSwitchMonitorCallback(int nCode, WPARAM wParam, LPARAM lParam)
-{
-	if (nCode >= 0 && wParam == WM_KEYDOWN)
-	{
-		// 检测按键按下事件
-		auto *pKeyBoard = (KBDLLHOOKSTRUCT *) lParam;
-		DWORD keyCode = pKeyBoard->vkCode;
-
-		if (mainWindow)
-		{
-			// 确保在主线程中调用槽函数
-			QMetaObject::invokeMethod(mainWindow, "globalSwitchMonitor", Qt::QueuedConnection,
-			                          Q_ARG(DWORD, keyCode));
-		}
-	}
-	return CallNextHookEx(getKeyHook, nCode, wParam, lParam);
-}
-
 // 热键捕获回调函数
-LRESULT CALLBACK hotkeyCaptureCallback(int nCode, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK globalKeyboardCaptureCallback(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	if (nCode >= 0 && wParam == WM_KEYDOWN)
 	{
 		// 检测按键按下事件
 		auto *pKeyBoard = (KBDLLHOOKSTRUCT *) lParam;
 		DWORD keyCode = pKeyBoard->vkCode;
-		// 卸载钩子
-		UnhookWindowsHookEx(getKeyHook);
-		getKeyHook = nullptr;
 
 		if (mainWindow)
 		{
-			// 确保在主线程中调用槽函数
+			// 确保在mainWindow中调用槽函数
 			QMetaObject::invokeMethod(mainWindow, "obtainedKey", Qt::QueuedConnection,
 			                          Q_ARG(DWORD, keyCode));
 		}
 	}
-	return CallNextHookEx(getKeyHook, nCode, wParam, lParam);
+	return CallNextHookEx(globalKeyboardCaptureHook, nCode, wParam, lParam);
 }
 
 // =============================================================================================== Class
@@ -69,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent) :
 		mousePressed(false),
 		getGlobalSwitchKeyHook_flag(false),
 		getDIYKeyHook_flag(false),
-		coordinateCaptureWidget_flag(false),
+		startEventInjectorAllowed_flag(true),
 		pageNum(IOCONFIGPAGE),
 		inputKey(MOUSELEFTKEY),
 		inputActionMode(CLICKS),
@@ -87,8 +62,8 @@ MainWindow::MainWindow(QWidget *parent) :
 	soundEffectAudioOutput->setVolume(100);
 
 	mainWindow = this;
-	// 设置全局开关捕获钩子
-	globalSwitchMonitorHook = SetWindowsHookEx(WH_KEYBOARD_LL, globalSwitchMonitorCallback, nullptr, 0);
+	// 设置全局按键捕获钩子
+	globalKeyboardCaptureHook = SetWindowsHookEx(WH_KEYBOARD_LL, globalKeyboardCaptureCallback, nullptr, 0);
 
 	// 设置按钮组
 	pageButtonGroup->addButton(ui->IOConfig_widget_button);
@@ -218,16 +193,13 @@ MainWindow::MainWindow(QWidget *parent) :
 	{
 		if (text.isEmpty() || text.toDouble() == 0)
 		{
-			// 卸载钩子
-			UnhookWindowsHookEx(globalSwitchMonitorHook);
-			globalSwitchMonitorHook = nullptr;
 			ui->startLabel->setStyleSheet("border: none; border-radius: 8px; background-color: #1b397e; color: #7e7e7e;");  // 禁用
+			startEventInjectorAllowed_flag = false;
 		}
 		else
 		{
-			// 设置全局开关捕获钩子
-			globalSwitchMonitorHook = SetWindowsHookEx(WH_KEYBOARD_LL, globalSwitchMonitorCallback, nullptr, 0);
 			ui->startLabel->setStyleSheet("border: none; border-radius: 8px; background-color: #3686f2; color: white;");  // 空闲
+			startEventInjectorAllowed_flag = true;
 		}
 	});
 	connect(this, &MainWindow::startEventInjector, eventInjector, &EventInjector::startTimer);
@@ -332,26 +304,17 @@ void MainWindow::getGlobalSwitchKey(bool status)
 {
 	if (status)
 	{
-		// 卸载钩子
-		UnhookWindowsHookEx(globalSwitchMonitorHook);
-		globalSwitchMonitorHook = nullptr;
 		ui->startLabel->setStyleSheet("border: none; border-radius: 8px; background-color: #1b397e; color: #7e7e7e;");  // 禁用
 
 		ui->IOConfig_bar_1->setEnabled(false);
 		ui->IOConfig_bar_3->setEnabled(false);
 		ui->globalSwitchCaptureButton->clearFocus();
+		ui->globalSwitchCaptureButton->setText("捕获中");
 
-		if (getKeyHook == nullptr)
-		{
-			ui->globalSwitchCaptureButton->setText("捕获中");
-			getKeyHook = SetWindowsHookEx(WH_KEYBOARD_LL, hotkeyCaptureCallback, nullptr, 0);
-			getGlobalSwitchKeyHook_flag = true;
-		}
+		getGlobalSwitchKeyHook_flag = true;
 	}
 	else
 	{
-		// 设置全局开关捕获钩子
-		globalSwitchMonitorHook = SetWindowsHookEx(WH_KEYBOARD_LL, globalSwitchMonitorCallback, nullptr, 0);
 		ui->startLabel->setStyleSheet("border: none; border-radius: 8px; background-color: #3686f2; color: white;");  // 空闲
 
 		ui->IOConfig_bar_1->setEnabled(true);
@@ -362,24 +325,16 @@ void MainWindow::getGlobalSwitchKey(bool status)
 void MainWindow::getDIYKey()
 {
 	ui->DIYKeyButton->clearFocus();
-	if (getKeyHook == nullptr)
-	{
-		// 卸载钩子
-		UnhookWindowsHookEx(globalSwitchMonitorHook);
-		globalSwitchMonitorHook = nullptr;
+	ui->IOConfig_bar_1->setEnabled(false);
+	ui->IOConfig_bar_2->setEnabled(false);
+	ui->IOConfig_bar_3->setEnabled(false);
+	ui->IOConfig_bar_5->setEnabled(false);
+	ui->startLabel->setStyleSheet("border: none; border-radius: 8px; background-color: #1b397e; color: #7e7e7e;");  // 禁用
 
-		ui->IOConfig_bar_1->setEnabled(false);
-		ui->IOConfig_bar_2->setEnabled(false);
-		ui->IOConfig_bar_3->setEnabled(false);
-		ui->IOConfig_bar_5->setEnabled(false);
-		ui->startLabel->setStyleSheet("border: none; border-radius: 8px; background-color: #1b397e; color: #7e7e7e;");  // 禁用
+	inputKey = DIYKEY;
+	ui->DIYKeyButton->setText("捕获中");
 
-		inputKey = DIYKEY;
-		ui->DIYKeyButton->setText("捕获中");
-
-		getKeyHook = SetWindowsHookEx(WH_KEYBOARD_LL, hotkeyCaptureCallback, nullptr, 0);
-		getDIYKeyHook_flag = true;
-	}
+	getDIYKeyHook_flag = true;
 }
 
 void MainWindow::obtainedKey(DWORD keyCode)
@@ -397,7 +352,6 @@ void MainWindow::obtainedKey(DWORD keyCode)
 		else
 		{
 			ui->globalSwitchCaptureButton->setText("请重试");
-			getKeyHook = SetWindowsHookEx(WH_KEYBOARD_LL, hotkeyCaptureCallback, nullptr, 0);
 		}
 	}
 	else if (getDIYKeyHook_flag)
@@ -407,9 +361,6 @@ void MainWindow::obtainedKey(DWORD keyCode)
 			ui->DIYKeyButton->setText(QString::fromStdString(theKeyValue->second));
 			diyKey = keyCode;
 			getDIYKeyHook_flag = false;
-
-			// 设置全局开关捕获钩子
-			globalSwitchMonitorHook = SetWindowsHookEx(WH_KEYBOARD_LL, globalSwitchMonitorCallback, nullptr, 0);
 			ui->startLabel->setStyleSheet("border: none; border-radius: 8px; background-color: #3686f2; color: white;");  // 空闲
 
 			ui->IOConfig_bar_1->setEnabled(true);
@@ -418,7 +369,47 @@ void MainWindow::obtainedKey(DWORD keyCode)
 		else
 		{
 			ui->DIYKeyButton->setText("请重试");
-			getKeyHook = SetWindowsHookEx(WH_KEYBOARD_LL, hotkeyCaptureCallback, nullptr, 0);
+		}
+	}
+	else if (startEventInjectorAllowed_flag)
+	{
+		if (keyCode == globalSwitchKey)
+		{
+			if (!eventInjector->eventInjector_flag)
+			{
+				// 播放音频
+				soundEffectPlayer->setSource(QUrl("qrc:/resources/open.wav"));
+				soundEffectPlayer->play();
+				// 修改控件状态
+				ui->IOConfigBars_widget->setEnabled(false);
+				ui->startLabel->setStyleSheet("border: none; border-radius: 8px; background-color: #ff5f56; color: white;");  // 工作中
+				ui->startLabel->setText("按下 -全局开关- 终止");
+				// 启动事件注入
+				emit startEventInjector(inputKey, inputActionMode, cursorMoveMode, diyKey, coordinateXY.at(0),
+										coordinateXY.at(1),
+										ui->PeriodValueInputLineEdit->text().toDouble());
+				while(!eventInjector->eventInjector_flag)
+				{
+					QThread::usleep(1000);
+				}
+			}
+			else
+			{
+				// 播放音频
+				soundEffectPlayer->setSource(QUrl("qrc:/resources/close.wav"));
+				soundEffectPlayer->play();
+				// 修改控件状态
+				ui->IOConfigBars_widget->setEnabled(true);
+				ui->startLabel->setStyleSheet("border: none; border-radius: 8px; background-color: #3686f2; color: white;");  // 空闲
+				ui->startLabel->setText("按下 -全局开关- 启动");
+				// 修改循环标志停止事件注入
+				eventInjector->eventInjector_flag = false;
+
+				while(eventInjector->eventInjector_flag)
+				{
+					QThread::usleep(1000);
+				}
+			}
 		}
 	}
 }
@@ -427,6 +418,10 @@ void MainWindow::startCoordinateCapture(bool status)
 {
 	if (status)
 	{
+		// 禁止启动事件注入器
+		startEventInjectorAllowed_flag = false;
+		ui->startLabel->setStyleSheet("border: none; border-radius: 8px; background-color: #1b397e; color: #7e7e7e;");  // 禁用
+		// 控件设置
 		ui->cursorCoordinateCaptureButton->clearFocus();
 		ui->cursorCoordinateCaptureButton->setText("捕获中");
 		// 动态创建窗口
@@ -435,7 +430,6 @@ void MainWindow::startCoordinateCapture(bool status)
 		captureWindow->setAttribute(Qt::WA_DeleteOnClose);
 		connect(captureWindow, &CoordinateCaptureWindow::coordinatesCaptured, this, &MainWindow::getCursorCoordinate);
 		captureWindow->show();
-		coordinateCaptureWidget_flag = true;
 	}
 }
 
@@ -446,148 +440,7 @@ void MainWindow::getCursorCoordinate(int x, int y)
 	auto coordinateXYStr = QString::number(x) + "," + QString::number(y);
 	ui->cursorCoordinateCaptureButton->setText(coordinateXYStr);
 	ui->cursorCoordinateCaptureButton->setChecked(false);
-	coordinateCaptureWidget_flag = false;
+	// 允许启动事件注入器
+	startEventInjectorAllowed_flag = true;
+	ui->startLabel->setStyleSheet("border: none; border-radius: 8px; background-color: #3686f2; color: white;");  // 空闲
 }
-
-void MainWindow::globalSwitchMonitor(DWORD keyCode)
-{
-	if (keyCode == globalSwitchKey)
-	{
-		if (!eventInjector->eventInjector_flag)
-		{
-			// 播放音频
-			soundEffectPlayer->setSource(QUrl("qrc:/resources/open.wav"));
-			soundEffectPlayer->play();
-			// 修改控件状态
-			ui->IOConfigBars_widget->setEnabled(false);
-			ui->startLabel->setStyleSheet("border: none; border-radius: 8px; background-color: #ff5f56; color: white;");  // 工作中
-			ui->startLabel->setText("按下 -全局开关- 终止");
-			// 启动事件注入
-			emit startEventInjector(inputKey, inputActionMode, cursorMoveMode, diyKey, coordinateXY.at(0),
-			                        coordinateXY.at(1),
-			                        ui->PeriodValueInputLineEdit->text().toDouble());
-			while(!eventInjector->eventInjector_flag)
-			{
-				QThread::usleep(1000);
-			}
-		}
-		else
-		{
-			// 播放音频
-			soundEffectPlayer->setSource(QUrl("qrc:/resources/close.wav"));
-			soundEffectPlayer->play();
-			// 修改控件状态
-			ui->IOConfigBars_widget->setEnabled(true);
-			ui->startLabel->setStyleSheet("border: none; border-radius: 8px; background-color: #3686f2; color: white;");  // 空闲
-			ui->startLabel->setText("按下 -全局开关- 启动");
-			// 修改循环标志停止事件注入
-			eventInjector->eventInjector_flag = false;
-
-			while(eventInjector->eventInjector_flag)
-			{
-				QThread::usleep(1000);
-			}
-		}
-	}
-}
-
-const std::unordered_map<DWORD, std::string> MainWindow::keyMap = {
-		{VK_LBUTTON,    "鼠标左键"},
-		{VK_RBUTTON,    "鼠标右键"},
-		{VK_MBUTTON,    "鼠标中键"},
-		{VK_BACK,       "退格"},
-		{VK_TAB,        "TAB"},
-		{VK_RETURN,     "回车"},
-		{VK_SHIFT,      "SHIFT"},
-		{VK_CONTROL,    "CTRL"},
-		{VK_CAPITAL,    "CL"},
-		{VK_ESCAPE,     "ESC"},
-		{VK_SPACE,      "空格"},
-		{VK_PRIOR,      "PGUP"},
-		{VK_NEXT,       "PGDN"},
-		{VK_END,        "END"},
-		{VK_HOME,       "HOME"},
-		{VK_LEFT,       "LEFT"},
-		{VK_UP,         "UP"},
-		{VK_RIGHT,      "RIGHT"},
-		{VK_DOWN,       "DOWN"},
-		{VK_SELECT,     "SEL"},
-		{VK_SNAPSHOT,   "截屏"},
-		{VK_DELETE,     "DEL"},
-		{0x30,          "0"},
-		{0x31,          "1"},
-		{0x32,          "2"},
-		{0x33,          "3"},
-		{0x34,          "4"},
-		{0x35,          "5"},
-		{0x36,          "6"},
-		{0x37,          "7"},
-		{0x38,          "8"},
-		{0x39,          "9"},
-		{0x41,          "A"},
-		{0x42,          "B"},
-		{0x43,          "C"},
-		{0x44,          "D"},
-		{0x45,          "E"},
-		{0x46,          "F"},
-		{0x47,          "G"},
-		{0x48,          "H"},
-		{0x49,          "I"},
-		{0x4A,          "J"},
-		{0x4B,          "K"},
-		{0x4C,          "L"},
-		{0x4D,          "M"},
-		{0x4E,          "N"},
-		{0x4F,          "O"},
-		{0x50,          "P"},
-		{0x51,          "Q"},
-		{0x52,          "R"},
-		{0x53,          "S"},
-		{0x54,          "T"},
-		{0x55,          "U"},
-		{0x56,          "V"},
-		{0x57,          "W"},
-		{0x58,          "X"},
-		{0x59,          "Y"},
-		{0x5A,          "Z"},
-		{VK_LWIN,       "LWIN"},
-		{VK_RWIN,       "RWIN"},
-		{VK_NUMPAD0,    "NUM 0"},
-		{VK_NUMPAD1,    "NUM 1"},
-		{VK_NUMPAD2,    "NUM 2"},
-		{VK_NUMPAD3,    "NUM 3"},
-		{VK_NUMPAD4,    "NUM 4"},
-		{VK_NUMPAD5,    "NUM 5"},
-		{VK_NUMPAD6,    "NUM 6"},
-		{VK_NUMPAD7,    "NUM 7"},
-		{VK_NUMPAD8,    "NUM 8"},
-		{VK_NUMPAD9,    "NUM 9"},
-		{VK_F1,         "F1"},
-		{VK_F2,         "F2"},
-		{VK_F3,         "F3"},
-		{VK_F4,         "F4"},
-		{VK_F5,         "F5"},
-		{VK_F6,         "F6"},
-		{VK_F7,         "F7"},
-		{VK_F8,         "F8"},
-		{VK_F9,         "F9"},
-		{VK_F10,        "F10"},
-		{VK_F11,        "F11"},
-		{VK_F12,        "F12"},
-		{VK_NUMLOCK,    "NL"},
-		{VK_LSHIFT,     "LSHFT"},
-		{VK_RSHIFT,     "RSHFT"},
-		{VK_LCONTROL,   "LCTRL"},
-		{VK_RCONTROL,   "RCTRL"},
-		{VK_OEM_1,      ";"},
-		{VK_OEM_PLUS,   "+"},
-		{VK_OEM_COMMA,  "<"},
-		{VK_OEM_MINUS,  "-"},
-		{VK_OEM_PERIOD, ">"},
-		{VK_OEM_2,      "?"},
-		{VK_OEM_3,      "~"},
-		{VK_OEM_4,      "["},
-		{VK_OEM_5,      "|"},
-		{VK_OEM_6,      "]"},
-		{VK_OEM_7,      "\""},
-};

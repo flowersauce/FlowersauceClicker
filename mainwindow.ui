@@ -359,7 +359,7 @@ background-color: rgba(255, 255, 255, 0); /* 背景颜色 */
 background-color: rgba(255, 255, 255, 0); /* 背景颜色 */</string>
      </property>
      <property name="text">
-      <string>版本信息 : 1.2.0</string>
+      <string>版本信息 : 1.2.1</string>
      </property>
     </widget>
     <widget class="QLabel" name="about_label_2">
@@ -510,6 +510,12 @@ background-color: rgba(255, 255, 255, 0); /* 背景颜色 */</string>
        <width>320</width>
        <height>220</height>
       </rect>
+     </property>
+     <property name="mouseTracking">
+      <bool>false</bool>
+     </property>
+     <property name="tabletTracking">
+      <bool>false</bool>
      </property>
      <property name="focusPolicy">
       <enum>Qt::FocusPolicy::NoFocus</enum>

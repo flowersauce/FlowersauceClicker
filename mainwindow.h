@@ -7,9 +7,11 @@
 #include <QThread>
 #include <QMediaPlayer>
 #include <QAudioOutput>
+#include "globaldefinitions.h"
 #include "customwidget.h"
 #include "coordinatecapturewindow.h"
 #include "eventinjector.h"
+
 
 QT_BEGIN_NAMESPACE
 
@@ -20,30 +22,6 @@ namespace Ui
 
 QT_END_NAMESPACE
 
-class EventInjector;
-
-enum pages
-{
-	IOCONFIGPAGE,
-	ABOUTPAGE,
-};
-enum inputKeyType
-{
-	MOUSELEFTKEY,
-	MOUSEMIDDLEKEY,
-	MOUSERIGHTKEY,
-	DIYKEY,
-};
-enum inputActionType
-{
-	CLICKS,
-	PRESS,
-};
-enum cursorMoveType
-{
-	FREE,
-	LOCK,
-};
 
 class MainWindow : public CustomWidget
 {
@@ -67,7 +45,6 @@ private:
 	QAudioOutput *soundEffectAudioOutput;
 	QThread *eventInjectorThread;
 	EventInjector *eventInjector;
-	static const std::unordered_map<DWORD, std::string> keyMap;     // 虚拟键值映射表
 	QButtonGroup *pageButtonGroup;
 	QButtonGroup *inputKeyButtonGroup;
 	QButtonGroup *inputActionButtonGroup;
@@ -76,7 +53,7 @@ private:
 	bool mousePressed;
 	bool getGlobalSwitchKeyHook_flag;                               // 获取全局开关键钩子工作状态
 	bool getDIYKeyHook_flag;                                        // 获取自定义按键钩子工作状态
-	bool coordinateCaptureWidget_flag;                              // 坐标捕获窗口工作状态
+	bool startEventInjectorAllowed_flag;							// 事件注入器允许使用标志
 	QPoint mouseStartPoint;                                         // 记录鼠标按下时的全局位置
 	QPoint windowStartPoint;                                        // 记录窗口初始位置
 	int pageNum;                                                    // 页码
@@ -89,25 +66,23 @@ private:
 
 private slots:
 
-	static void applicationExit();                          // 程序退出
-	void applicationMinimize();                             // 程序最小化
-	void applicationPin();                                  // 程序置顶
-	void getGlobalSwitchKey(bool status);                   // 获取全局开关键
-	void getDIYKey();                                       // 获取自定义按键
-	void obtainedKey(DWORD keyCode);                        // 得到按键
-	void startCoordinateCapture(bool status);               // 开始坐标捕获
-	void getCursorCoordinate(int x, int y);                 // 获取光标坐标
-	void globalSwitchMonitor(DWORD keyCode);                // 全局开关监控器
+	static void applicationExit();									// 程序退出
+	void applicationMinimize();										// 程序最小化
+	void applicationPin();											// 程序置顶
+	void getGlobalSwitchKey(bool status);							// 获取全局开关键
+	void getDIYKey();												// 获取自定义按键
+	void obtainedKey(DWORD keyCode);								// 得到按键
+	void startCoordinateCapture(bool status);						// 开始坐标捕获
+	void getCursorCoordinate(int x, int y);							// 获取光标坐标
 
 signals:
-
 	void startEventInjector(int inputKey,
 	                        int inputActionMode,
 	                        int cursorMoveMode,
 	                        DWORD diyKey,
 	                        int x,
 	                        int y,
-	                        double eventCycle);             // 启动事件注入器
+	                        double eventCycle);						// 启动事件注入器
 };
 
 #endif // MAINWINDOW_H

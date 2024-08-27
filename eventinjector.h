@@ -1,8 +1,10 @@
 #ifndef EVENTINJECTOR_H
 #define EVENTINJECTOR_H
 
+#include <QObject>
+#include <QThread>
 #include <windows.h>
-#include "mainwindow.h"
+#include "globaldefinitions.h"
 
 class EventInjector : public QObject
 {
