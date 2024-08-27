@@ -6,6 +6,16 @@ An auto clicker for Windows64, Can be used to control the continuous click and l
 <p align="center">
   <img src="assets/application preview.png" alt="应用程序预览">
 </p>  
+<p align="center">
+  <figure>
+    <img src="assets/application preview A.png" alt="应用程序预览 应用页" style="margin-right: 20px;"/>
+    <figcaption>应用页面</figcaption>
+  </figure>
+  <figure>
+    <img src="assets/application preview B.png" alt="应用程序预览 关于页" />
+    <figcaption>关于页面</figcaption>
+  </figure>
+</p>  
   
 ![PAGE3](assets/test.png)
 
