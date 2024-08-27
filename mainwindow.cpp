@@ -7,7 +7,7 @@ HHOOK globalKeyboardCaptureHook = nullptr;
 static MainWindow *mainWindow = nullptr;
 
 // =============================================================================================== HookCallback
-// 热键捕获回调函数
+// 全局键盘捕获回调函数
 LRESULT CALLBACK globalKeyboardCaptureCallback(int nCode, WPARAM wParam, LPARAM lParam)
 {
 	if (nCode >= 0 && wParam == WM_KEYDOWN)
@@ -54,15 +54,17 @@ MainWindow::MainWindow(QWidget *parent) :
 		coordinateXY({0, 0})
 {
 	ui->setupUi(this);
+
 	// 事件注入器线程初始化
 	eventInjectorThread->start();
 	eventInjector->moveToThread(eventInjectorThread);
+
 	// 播放器初始化
 	soundEffectPlayer->setAudioOutput(soundEffectAudioOutput);
 	soundEffectAudioOutput->setVolume(100);
 
-	mainWindow = this;
 	// 设置全局按键捕获钩子
+	mainWindow = this;
 	globalKeyboardCaptureHook = SetWindowsHookEx(WH_KEYBOARD_LL, globalKeyboardCaptureCallback, nullptr, 0);
 
 	// 设置按钮组
@@ -121,8 +123,7 @@ MainWindow::MainWindow(QWidget *parent) :
 	connect(ui->exitButton, &QPushButton::clicked, this, &MainWindow::applicationExit);
 	connect(ui->minimizeButton, &QPushButton::clicked, this, &MainWindow::applicationMinimize);
 	connect(ui->pinButton, &QPushButton::clicked, this, &MainWindow::applicationPin);
-	connect(ui->globalSwitchCaptureButton, &QPushButton::toggled, this, &MainWindow::getGlobalSwitchKey);
-	connect(ui->cursorCoordinateCaptureButton, &QPushButton::toggled, this, &MainWindow::startCoordinateCapture);
+
 	connect(ui->IOConfig_widget_button, &QPushButton::clicked, this, [=]()
 	{
 		pageNum = IOCONFIGPAGE;
@@ -135,17 +136,30 @@ MainWindow::MainWindow(QWidget *parent) :
 		ui->about_widget->setVisible(true);
 		ui->IOConfig_widget->setVisible(false);
 	});
-	connect(ui->mouseLeftButton, &QPushButton::clicked, this, [=]()
+
+	connect(ui->globalSwitchCaptureButton, &QPushButton::toggled, this, &MainWindow::getGlobalSwitchKey);
+	connect(ui->cursorCoordinateCaptureButton, &QPushButton::toggled, this, &MainWindow::startCoordinateCapture);
+
+	connect(ui->mouseLeftButton, &QPushButton::toggled, this, [=](bool status)
 	{
-		inputKey = MOUSELEFTKEY;
+		if (status)
+		{
+			inputKey = MOUSELEFTKEY;
+		}
 	});
-	connect(ui->mouseMiddleButton, &QPushButton::clicked, this, [=]()
+	connect(ui->mouseMiddleButton, &QPushButton::toggled, this, [=](bool status)
 	{
-		inputKey = MOUSEMIDDLEKEY;
+		if (status)
+		{
+			inputKey = MOUSEMIDDLEKEY;
+		}
 	});
-	connect(ui->mouseRightButton, &QPushButton::clicked, this, [=]()
+	connect(ui->mouseRightButton, &QPushButton::toggled, this, [=](bool status)
 	{
-		inputKey = MOUSERIGHTKEY;
+		if (status)
+		{
+			inputKey = MOUSERIGHTKEY;
+		}
 	});
 	connect(ui->DIYKeyButton, &QPushButton::clicked, this, &MainWindow::getDIYKey);
 	connect(ui->DIYKeyButton, &QPushButton::toggled, this, [=](bool status)
@@ -156,9 +170,13 @@ MainWindow::MainWindow(QWidget *parent) :
 			ui->IOConfig_bar_5->setEnabled(true);
 		}
 	});
-	connect(ui->clicksButton, &QPushButton::clicked, this, [=]()
+
+	connect(ui->clicksButton, &QPushButton::toggled, this, [=](bool status)
 	{
-		inputActionMode = CLICKS;
+		if (status)
+		{
+			inputActionMode = CLICKS;
+		}
 	});
 	connect(ui->pressButton, &QPushButton::toggled, this, [=](bool status)
 	{
@@ -172,6 +190,7 @@ MainWindow::MainWindow(QWidget *parent) :
 			ui->IOConfig_bar_6->setEnabled(true);
 		}
 	});
+
 	connect(ui->cursorFreeButton, &QPushButton::toggled, this, [=](bool status)
 	{
 
@@ -180,15 +199,16 @@ MainWindow::MainWindow(QWidget *parent) :
 			cursorMoveMode = FREE;
 			ui->IOConfig_bar_2->setEnabled(false);
 		}
-		else
+	});
+	connect(ui->cursorLockButton, &QPushButton::toggled, this, [=](bool status)
+	{
+		if (status)
 		{
+			cursorMoveMode = LOCK;
 			ui->IOConfig_bar_2->setEnabled(true);
 		}
 	});
-	connect(ui->cursorLockButton, &QPushButton::clicked, this, [=]()
-	{
-		cursorMoveMode = LOCK;
-	});
+
 	connect(ui->PeriodValueInputLineEdit, &QLineEdit::textChanged, this, [=](const QString &text)
 	{
 		if (text.isEmpty() || text.toDouble() == 0)
@@ -202,15 +222,14 @@ MainWindow::MainWindow(QWidget *parent) :
 			startEventInjectorAllowed_flag = true;
 		}
 	});
+
 	connect(this, &MainWindow::startEventInjector, eventInjector, &EventInjector::startTimer);
 
 	// 设置周期值输入框的输入字符类型和数值范围
 	auto *doubleValidator = new QDoubleValidator(0.000, 99999.999, 3, ui->PeriodValueInputLineEdit);
 	doubleValidator->setNotation(QDoubleValidator::StandardNotation); // 设置QDoubleValidator为标准计数法 ( 默认为科学计数法 )
 	ui->PeriodValueInputLineEdit->setValidator(doubleValidator);
-	// 页面初始化
-	ui->about_widget->setVisible(false);
-	ui->IOConfig_bar_2->setEnabled(false);
+
 	// 设置字体
 	int fontId = QFontDatabase::addApplicationFont(":/resources/CascadiaMono.ttf");
 	QString fontFamily = QFontDatabase::applicationFontFamilies(fontId).at(0);
@@ -219,10 +238,15 @@ MainWindow::MainWindow(QWidget *parent) :
 	ui->titleLabel->setFont(font);
 	ui->appName_label_A->setFont(font);
 	ui->appName_label_B->setFont(font);
+
 	// 设置介绍页超链接
 	ui->about_label_4->setText(
 			"<a style='color: #ffada9; text-decoration: none;' href=\"https://github.com/flowersauce/FlowersauceClicker\">点击跳转到仓库</a>");
 	ui->about_label_4->setOpenExternalLinks(true);  // 允许外部链接打开
+
+	// 页面控件初始化
+	ui->about_widget->setVisible(false);
+	ui->IOConfig_bar_2->setEnabled(false);
 }
 
 MainWindow::~MainWindow()
