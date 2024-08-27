@@ -2,7 +2,7 @@
   <img src="assets/repository header image.png" alt="头图" style="width: 800px;">
 </p>  
 
-欢迎使用 FlowersauceClicker
+欢迎使用 FlowersauceClicker  
 一款免费开源的Windows连点器
 
 
