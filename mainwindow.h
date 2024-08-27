@@ -65,7 +65,6 @@ private:
 	std::array<int, 2> coordinateXY;                                // 坐标
 
 private slots:
-
 	static void applicationExit();									// 程序退出
 	void applicationMinimize();										// 程序最小化
 	void applicationPin();											// 程序置顶
