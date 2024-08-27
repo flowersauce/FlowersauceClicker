@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/repository header image.png" alt="头图" style="width: 800px;">
+  <img src="assets/repository header image.png" alt="头图">
 </p>  
 
 欢迎使用 FlowersauceClicker  
@@ -18,6 +18,6 @@
 应用预览:
 
 <p align="center">
-  <img src="assets/application preview A.png" alt="应用页面" style="width: 400px;"> 
-  <img src="assets/application preview B.png" alt="关于页面" style="width: 400px;">
+  <img src="assets/application preview A.png" alt="关于页面" style="width: 400px;"> 
+  <img src="assets/application preview B.png" alt="应用页面" style="width: 400px;">
 </p> 
