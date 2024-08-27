@@ -117,6 +117,10 @@ void EventInjector::startTimer(int inputKey,
 		cumulativeError +=
 				static_cast<double>(errorTimer.elapsed()) - static_cast<double>(executionTimes) * singleCycle;
 		// 动作执行
+		if (!eventInjector_flag)
+		{
+			break;
+		}
 		SendInput(eventNum, inputEvent, sizeof(INPUT));
 		// 执行次数累加
 		executionTimes++;
